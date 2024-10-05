@@ -7,8 +7,8 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def processar_coordenadas():
   try:
-    latitude = request.args.get('latitude', type=float)
-    longitude = request.args.get('longitude', type=float)
+    latitude = float(request.args.get('latitude'))
+    longitude = float(request.args.get('longitude'))
 
     if latitude is None or longitude is None:
       return jsonify({'error': 'Send a latitude/longitude post request to get CO2 emissions data.'}), 400
