@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET'])
 def processar_coordenadas():
   try:
     data = request.get_json()
@@ -38,16 +38,16 @@ def getData(latitude, longitude):
     ).json()["features"]
 
     local = {
-        "type": "Feature",
+        "type": "Feature", 
         "properties": {},
         "geometry": {
             "coordinates": [
                 [
                     [longitude, latitude],
                     [longitude, latitude-0.20],
-                    [longitude-0.20, latitude-0.20],
-                    [longitude-0.20, latitude],
-                    [longitude, latitude],
+                    [longitude-0.20, latitude-0.20], 
+                    [longitude-0.20, latitude], 
+                    [longitude, latitude],  
                 ]
             ],
             "type": "Polygon",
@@ -74,13 +74,6 @@ def getData(latitude, longitude):
 
     co2data = stats['statistics']['b1']
     return f"CO2 data (monthly emissions on tonne C/km²/month):\n     minimal: {co2data['min']}\n     mean {co2data['mean']}\n     max {co2data['max']}\n     majority {co2data['majority']}"
-
-if __name__ == '__main__':
-  app.run(debug=True)
-
-@app.route('/', methods=['GET'])
-def info():
-  return jsonify({'message': 'Send a latitude/longitude post request to get CO2 emissions data.'})
 
 if __name__ == '__main__':
   app.run(debug=True)
