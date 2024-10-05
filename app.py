@@ -12,7 +12,7 @@ def processar_coordenadas():
     longitude = float(data['longitude'])
 
     if not (-90 <= latitude <= 90) or not (-180 <= longitude <= 180):
-      return jsonify({'error': 'Invalid coordinates'}), 400
+      return jsonify({'error': 'Send a latitude/longitude post request to get CO2 emissions data.'}), 400
 
     result = getData(latitude, longitude)
 
